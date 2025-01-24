@@ -52,7 +52,7 @@ RaspberryPiBabyMonitor/
    - Attach the IR LED emitter and light sensor using the respective JST connectors.
    
 2. **Set up the software**:
-   - Follow the detailed instructions in [Step 1 and Step 2 of the INSTALLATION.md](INSTALLATION.md#step-1-flashing-the-sd-card-with-raspberry-pi-os) to flash Raspberry Pi OS and set up SSH and network configuration.
+   - Follow the detailed instructions in [Step 1 and Step 2 of the INSTALLATION.md](docs/INSTALLATION.md#step-1-flashing-the-sd-card-with-raspberry-pi-os) to flash Raspberry Pi OS and set up SSH and network configuration.
    - Clone this repository and install the required dependencies by following [Step 4 of the INSTALLATION.md](INSTALLATION.md#step-4-setup-project-environment-on-raspberry-pi).
 
 3. **Run the application**:
