@@ -19,6 +19,7 @@ This project provides a cost-effective and customizable baby monitor solution us
 | JST PH 4-Pin to Female Socket Cable (200mm)    | For connecting the light sensor                          
 
 ## File Tree
+```
 RaspberryPiBabyMonitor/
 ├── src/
 │ ├── video_stream.py
@@ -35,7 +36,7 @@ RaspberryPiBabyMonitor/
 │ └── test_light_sensor.py
 ├── README.md
 └── LICENSE
-
+```
 
 ## Getting Started
 1. **Assemble the hardware**:
