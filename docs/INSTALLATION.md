@@ -11,6 +11,8 @@ This guide walks through the steps to set up the Raspberry Pi, install the neces
 - Monitor or TV for initial setup (optional)
 - Keyboard and mouse (optional, for setup without SSH)
 
+
+
 ## Step 1: Flashing the SD Card with Raspberry Pi OS
 
 1. **Download the Raspberry Pi Imager**:  
@@ -31,6 +33,7 @@ This guide walks through the steps to set up the Raspberry Pi, install the neces
 
 4. **Complete the Flashing**:  
    After you have set everything up, proceed with flashing the SD card. Once the flashing process is complete, remove the SD card from your computer.
+
 
 
 ## Step 2: Set Up SSH Access (for headless setup)
@@ -93,89 +96,88 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    - If you had previously connected to the Raspberry Pi via an ethernet cable, unplug it and run the nmap command again to find the IP address (or find it on a connected screen). Note that it may be different than before.
 
 
-## 5. Set Up Your Raspberry Pi
 
-Once you're logged into the Raspberry Pi:
+## Step 3: Install and Enable Camera
 
-1. Update the system:
+1. **Update the System**:  
+   - SSH into the host and run the following commands to ensure your system is up-to-date:
+   
+   ```bash
+   sudo apt update
+   sudo apt upgrade
+   sudo reboot
+   ```
 
-    ```bash
-    sudo apt update
-    sudo apt upgrade
-    ```
+2. **Test the Camera**
+   - Ensure the camera module is properly connected to the Raspberry Pi via the camera slot (CSI connector).
+   - Check for physical issues like loose ribbons or incorrect orientation.
+   - Install `libcamera` tools:
+   
+   ```bash
+   sudo apt install libcamera-apps
+   ```
 
-3. Set up the camera module:
+   - Capture a test image/video (10 sec)
 
-    ```bash
-    sudo raspi-config
-    ```
+   ```bash
+   libcamera-jpeg -o test.jpg
+   ```
 
-    - Select `Interfacing Options` -> `Camera` -> Enable.
-    - Reboot the Raspberry Pi.
+   ```bash
+   libcamera-vid -t 10000 -o test.h264
+   ```
 
+3. **Transfer image/video to client (headless setup)**
+   - After capturing the test image (`test.jpg`) or video (`test.h264`), transfer them to your computer using the `scp` (secure copy) command
+   - Open a new terminal or PowerShell and type the following commands:
 
+   ```bash
+   scp <username>@<pi_ip_address>:<full localpath>/test.jpg .
+   scp <username>@<pi_ip_address>:<full localpath>/test.h264 .
+   ```
 
-
-
-
-
-
-
-
-
-
-
-
-
+   - You will get prompted for the Raspberry Pi password again.
+   - View test image and video on the client
 
 
 
-## 6. Clone the Repository
+## Step 4: Setup project environment on Raspberry Pi
 
-Now that your Raspberry Pi is set up, clone the Baby Monitor project repository:
+1. **Install pip and venv**
+   - SSH into the Raspberry Pi and type the following commands:
 
-1. On your computer, open a terminal or use VS Code to navigate to the directory where you want to clone the repository.
-2. Run the following command to clone the repository:
+   ```bash
+   sudo apt install python3-pip
+   sudo apt install python3-venv
+   ```
 
-    ```bash
-    git clone https://github.com/your-username/RaspberryPiBabyMonitor.git
-    ```
+1. **Create a project directory**
+   - Create a "baby monitor" projects directory, as follows:
 
-3. Navigate into the project directory:
+   ```bash
+   mkdir -p /home/<username>/projects
+   mkdir -p /home/<username>/projects/baby_monitor
+   ```
 
-    ```bash
-    cd RaspberryPiBabyMonitor
-    ```
+2. **Setup virtual environment for project and install dependencies**
+   - Navigate to the project directory, and create and activate a virtual environment
 
-## 7. Install Dependencies
+   ```bash
+   cd /home/<username>/projects/baby_monitor
+   python3 -m venv venv
+   source venv/bin/ativate
+   ```
 
-Install the necessary dependencies to run the project:
+3. **Clone the repository and install dependencies**
+   - While inside the virtual environment clone this github repository and install the requirements
 
-1. Install `pip` (if not already installed):
+   ```bash
+   git clone https://github.com/BradleyEdelman/Raspberry-Pi-Baby-Monitor.git
+   cd Raspberry-Pi-Baby-Monitor
+   pip install -r requirements.txt
+   ```
 
-    ```bash
-    sudo apt install python3-pip
-    ```
 
-2. Install the required Python packages:
 
-    ```bash
-    pip3 install -r requirements.txt
-    ```
+## Step 5: Run Project and Enjoy!
 
-## 8. Run the Application
-
-Finally, start the application:
-
-1. Run the `video_stream.py` script:
-
-    ```bash
-    python3 src/video_stream.py
-    ```
-
-2. Visit `http://<raspberry_pi_ip>:<port>` in a browser to view the live stream.
-
-## Troubleshooting
-
-- Ensure your camera module is correctly connected.
-- Double-check the `wpa_supplicant.conf` file for accurate Wi-Fi details.
