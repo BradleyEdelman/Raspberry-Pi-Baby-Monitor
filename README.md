@@ -21,19 +21,27 @@ This project provides a cost-effective and customizable baby monitor solution us
 ## File Tree
 ```
 RaspberryPiBabyMonitor/
+│
 ├── src/
 │ ├── video_stream.py
-│ ├── led_control.py
-│ ├── light_sensor.py
-│ └── setup.py
+│ ├── web_server.py
+│ └── light_sensor.py
+│
 ├── docs/
 │ ├── INSTALLATION.md
-│ ├── TROUBLESHOOTING.md
-│ └── EXPANSION.md
+│ └── TROUBLESHOOTING.md
+│
+├── templates/
+│ └── index.html
+│
 ├── tests/
 │ ├── test_video_stream.py
 │ ├── test_led_control.py
 │ └── test_light_sensor.py
+│
+├── requirements.txt
+├── setup.py
+├── .gitignore
 ├── README.md
 └── LICENSE
 ```
@@ -42,13 +50,14 @@ RaspberryPiBabyMonitor/
 1. **Assemble the hardware**:
    - Connect the camera module to the Raspberry Pi.
    - Attach the IR LED emitter and light sensor using the respective JST connectors.
+   
 2. **Set up the software**:
-   - Flash Raspberry Pi OS Lite onto the SD card.
-   - Enable SSH and configure the network connection.
-   - Clone this repository and install dependencies.
+   - Follow the detailed instructions in [Step 1 and Step 2 of the INSTALLATION.md](INSTALLATION.md#step-1-flashing-the-sd-card-with-raspberry-pi-os) to flash Raspberry Pi OS and set up SSH and network configuration.
+   - Clone this repository and install the required dependencies by following [Step 4 of the INSTALLATION.md](INSTALLATION.md#step-4-setup-project-environment-on-raspberry-pi).
+
 3. **Run the application**:
-   - Execute `video_stream.py` to start the video feed.
-   - Use a web browser to view the stream.
+   - Execute `web_server.py` to start the video feed.
+   - Use a web browser to view the stream by visiting `http://<raspberry_pi_ip>:<port>`.
 
 ## Usage
 - Visit `http://<raspberry_pi_ip>:<port>` in a browser to view the live stream.

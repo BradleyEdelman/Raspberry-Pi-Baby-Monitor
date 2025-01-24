@@ -53,7 +53,7 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    - Make sure your client (e.g. desktop/laptop) is on the same Wi-Fi network as the Raspberry Pi host.
    - Use a network scanner like `nmap` (download for windows) to find the IP address assigned to the Raspberry Pi.
    - If the Raspberry Pi is connected to a monitor (e.g. for initial setup), the device should tell you its IP address once fully booted
-   - If no monitor is conneted, open powershell on the client and type in the following line to identify devices on the local network
+   - If no monitor is connected, open powershell on the client and type in the following line to identify devices on the local network
 
    ```bash
    nmap -sn 192.168.1.0/24
@@ -66,7 +66,7 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    ssh <username>@<your_pi_ip_address>
    ```
 
-   - Enter the password that you specied during the flashing process
+   - Enter the password that you specified during the flashing process
 
 6. **Setup Wi-Fi, if needed**:
    - If your Raspberry Pi did not automatically connect to Wi-Fi and/or if you performed the initial setup with the device connected to a router via ethernet cable (like me), you can now create the `wpa_supplicant.conf` file
@@ -165,7 +165,7 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    ```bash
    cd /home/<username>/projects/baby_monitor
    python3 -m venv venv
-   source venv/bin/ativate
+   source venv/bin/activate
    ```
 
 3. **Clone the repository and install dependencies**
