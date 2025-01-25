@@ -5,24 +5,25 @@ import time
 app = Flask(__name__)
 
 def gen_frames():
-    # Start libcamera-vid in MJPEG mode
+    # Start libcamera-vid in MJPEG mode and pipe it into ffmpeg
     process = subprocess.Popen(
         ["libcamera-vid", "--nopreview", "--width", "640", "--height", "480", "--framerate", "30", "--codec", "mjpeg", "--output", "-"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
+
+    # We use ffmpeg to convert MJPEG output to a stream
+    ffmpeg_process = subprocess.Popen(
+        ["ffmpeg", "-f", "mjpeg", "-i", "-", "-f", "mjpeg", "pipe:1"],
+        stdin=process.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
     
     while True:
-        frame = process.stdout.read(1024)  # Read in chunks of 1024 bytes
+        # Read frame by frame from ffmpeg output
+        frame = ffmpeg_process.stdout.read(1024)
         if not frame:
             break  # Stop if no frame is captured
         
-        # Check for errors in the stderr stream and print them
-        error = process.stderr.read(1024)
-        if error:
-            print(f"Error: {error.decode('utf-8')}")
-            break
-        
-        # Yield each frame to the client (this is the streaming part)
+        # Yield the frame to the client (this is the streaming part)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
