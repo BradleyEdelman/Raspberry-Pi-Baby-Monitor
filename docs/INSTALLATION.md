@@ -116,6 +116,9 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    ```bash
    sudo apt install libcamera-apps
    ```
+sudo apt install libcap-dev
+sudo apt install python3-picamera2 libcamera-apps
+venv(pip install --no-deps picamera2)
 
    - Capture a test image/video (10 sec)
 
