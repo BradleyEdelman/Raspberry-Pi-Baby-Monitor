@@ -1,18 +1,21 @@
 from flask import Flask, render_template, Response
 import subprocess
-import time
 
 app = Flask(__name__)
 
 def gen_frames():
+    # Start libcamera-vid in MJPEG mode
+    process = subprocess.Popen(
+        ["libcamera-vid", "--nopreview", "--width", "640", "--height", "480", "--framerate", "30", "--codec", "mjpeg", "--output", "-"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
+    
     while True:
-        # Capture a still image using libcamera-jpeg
-        # Using subprocess to call libcamera-jpeg and save it as 'frame.jpg'
-        subprocess.run(["libcamera-jpeg", "-o", "frame.jpg"])
-
-        # Read the saved image
-        with open("frame.jpg", "rb") as f:
-            frame = f.read()
+        # Read a frame from libcamera-vid's stdout
+        frame = process.stdout.read(1024)  # Read in chunks
+        
+        if not frame:
+            break
 
         # Yield each frame to the client (this is the streaming part)
         yield (b'--frame\r\n'
