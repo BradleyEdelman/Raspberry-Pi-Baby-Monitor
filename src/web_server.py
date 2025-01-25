@@ -4,7 +4,7 @@ import time
 
 app = Flask(__name__)
 
-# Initialize the camera
+# Initialize camera
 cap = cv2.VideoCapture(0)
 
 def gen_frames():

@@ -129,11 +129,11 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
 
 3. **Transfer image/video to client (headless setup)**
    - After capturing the test image (`test.jpg`) or video (`test.h264`), transfer them to your computer using the `scp` (secure copy) command
-   - Open a new terminal or PowerShell and type the following commands:
+   - Open a new terminal or PowerShell and type the following commands (/remote/path/to/file/ should be something like "/home/<username>/"):
 
    ```bash
-   scp <username>@<pi_ip_address>:<full localpath>/test.jpg .
-   scp <username>@<pi_ip_address>:<full localpath>/test.h264 .
+   scp username@host:</remote/path/to/file/>test.jpg </local/path/to/destination/>test.jpg .
+   scp username@host:</remote/path/to/file/>test.h264 </local/path/to/destination/>test.h264 .
    ```
 
    - You will get prompted for the Raspberry Pi password again.
@@ -151,7 +151,7 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    sudo apt install python3-venv
    ```
 
-1. **Create a project directory**
+2. **Create a project directory**
    - Create a "baby monitor" projects directory, as follows:
 
    ```bash
@@ -159,16 +159,48 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    mkdir -p /home/<username>/projects/baby_monitor
    ```
 
-2. **Setup virtual environment for project and install dependencies**
+3. **Setup virtual environment for project and install dependencies**
    - Navigate to the project directory, and create and activate a virtual environment
 
    ```bash
    cd /home/<username>/projects/baby_monitor
    python3 -m venv venv
-   source venv/bin/activate
    ```
 
-3. **Clone the repository and install dependencies**
+4. **Install OpenCV system wide**
+   - I ran into a lot of difficulties installing OpenCV inside my virtual environment, but was able to install it system-wide and then link it
+   - First, install dependencies:
+
+   ```bash
+   sudo apt install -y build-essential cmake git pkg-config libjpeg-dev libtiff-dev libpng-dev \
+   libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev \
+   libfontconfig1-dev libcairo2-dev libgdk-pixbuf2.0-dev libpango1.0-dev libgtk2.0-dev libgtk-3-dev \
+   libatlas-base-dev gfortran python3-dev python3-numpy
+   ```
+   - Install OpenCV via apt
+
+   ```bash
+   sudo apt install -y python3-opencv
+   ```
+
+   - Verify OpenCV version and locate path
+
+   ```bash
+   python3 -c "import cv2; print(cv2.__version__)"
+   python3 -c "import cv2; print(cv2.__file__)"
+   ```
+
+   This should return something like the following:
+   "/usr/lib/python3/dist-packages/cv2.cpython-311-arm-linux-gnueabihf.so"
+
+
+5. **Clone the repository, install dependencies, and link OpenCV**
+   - Activate virtual environment
+
+   ```bash
+   source venv/bin/activate
+   ```
+   
    - While inside the virtual environment clone this github repository and install the requirements
 
    ```bash
@@ -177,6 +209,18 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
    pip install -r requirements.txt
    ```
 
+   - Create a symbolic link to the OpenCV system-wide library inside the virtual environment's directory:
+
+   ```bash
+   ln -s /usr/lib/python3/dist-packages/cv2.cpython-311-arm-linux-gnueabihf.so \
+   $(python -c "import site; print(site.getsitepackages()[0])")/cv2.so
+   ```
+
+   - Test OpenCV
+
+   ```bash
+   python -c "import cv2; print(cv2.__version__)"
+   ```
 
 
 ## Step 5: Run Project and Enjoy!

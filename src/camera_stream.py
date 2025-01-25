@@ -4,7 +4,7 @@ import numpy as np
 # OpenCV video capture object for the camera
 cap = cv2.VideoCapture(0)
 
-# Set the width and height of the video stream (optional)
+# Set the width and height of the video stream
 cap.set(3, 640)  # Width
 cap.set(4, 480)  # Height
 
@@ -13,7 +13,7 @@ while True:
     if not ret:
         break
 
-    # Convert the frame to grayscale (optional, depending on use case)
+    # Convert the frame to grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Display the frame (only when display is attached)
