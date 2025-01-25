@@ -1,4 +1,4 @@
-opencv-python==4.7.0.72
+# opencv-python==4.7.0.72
 flask==2.2.3
 flask-socketio==5.2.1
 pyserial==3.5

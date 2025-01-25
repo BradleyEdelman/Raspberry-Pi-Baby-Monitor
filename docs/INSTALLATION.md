@@ -205,8 +205,7 @@ After flashing, you'll need to enable SSH on your Raspberry Pi:
 
    ```bash
    git clone https://github.com/BradleyEdelman/Raspberry-Pi-Baby-Monitor.git
-   cd Raspberry-Pi-Baby-Monitor
-   pip install -r requirements.txt
+   pip install -r Raspberry-Pi-Baby-Monitor/requirements.txt
    ```
 
    - Create a symbolic link to the OpenCV system-wide library inside the virtual environment's directory:
