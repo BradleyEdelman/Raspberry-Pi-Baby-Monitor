@@ -11,6 +11,11 @@ picam2 = None
 
 # Camera streaming control variables
 camera_streaming = False
+picam2.stop()
+picam2 = Picamera2()
+picam2.preview_configuration.main.size = (640, 480)  # resolution
+picam2.preview_configuration.main.format = "RGB888"  # format
+picam2.configure("preview")
 
 # Camera thread function
 def generate_frames():
