@@ -6,7 +6,7 @@ import time
 # Initialize Flask app
 app = Flask(__name__)
 
-global camera_streaming, picam2
+global camera_streaming
 
 # Camera streaming control variables
 camera_streaming = True
@@ -30,7 +30,8 @@ def generate_frames():
 # Route to start or stop the stream
 @app.route('/toggle_stream')
 def toggle_stream():
-    
+    global camera_streaming
+
     if camera_streaming:
         # picam2.stop()
         camera_streaming = False
