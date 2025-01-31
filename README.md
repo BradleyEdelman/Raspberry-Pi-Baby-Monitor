@@ -23,21 +23,11 @@ This project describes a cost-effective and customizable baby monitor using a Ra
 RaspberryPiBabyMonitor/
 │
 ├── src/
-│ ├── video_stream.py
-│ ├── web_server.py
-│ └── light_sensor.py
+│ └── stream.py
 │
 ├── docs/
 │ ├── INSTALLATION.md
 │ └── TROUBLESHOOTING.md
-│
-├── templates/
-│ └── index.html
-│
-├── tests/
-│ ├── test_video_stream.py
-│ ├── test_led_control.py
-│ └── test_light_sensor.py
 │
 ├── requirements.txt
 ├── setup.py
@@ -56,7 +46,7 @@ RaspberryPiBabyMonitor/
    - Clone this repository and install the required dependencies by following [Step 4 of the INSTALLATION.md](docs/INSTALLATION.md#step-4-setup-project-environment-on-raspberry-pi).
 
 3. **Run the application**:
-   - Execute `web_server.py` to start the video feed.
+   - Execute `stream.py` to start the video feed.
    - Use a web browser to view the stream by visiting `http://<raspberry_pi_ip>:<port>`.
 
 ## Usage
