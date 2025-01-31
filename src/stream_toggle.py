@@ -28,25 +28,22 @@ def toggle_stream():
     global camera_streaming, picam2
     
     if camera_streaming:
-        # Stop the stream only if it's currently started
-        if picam2 and picam2.is_running():
-            picam2.stop()
-            camera_streaming = False
-            return "Stream stopped"
-        else:
-            return "Stream is already stopped"
-    else:
         # Start the stream only if it's currently stopped
-        if not picam2 or not picam2.is_running():
+        if picam2 and picam2.is_running():
+            return "Stream is already running"
+        else:
             picam2 = Picamera2()
             picam2.preview_configuration.main.size = (640, 480)  # resolution
             picam2.preview_configuration.main.format = "RGB888"  # format
             picam2.configure("preview")
             picam2.start()
-            camera_streaming = True
             return "Stream started"
+    else:
+        # Stop the stream only if it's currently started
+        if not picam2 or not picam2.is_running():
+            return "Stream is already stopped"
         else:
-            return "Stream is already running"
+            picam2.stop()
 
 # Route to start video stream
 @app.route('/video_feed')
