@@ -6,37 +6,38 @@ import time
 # Initialize Flask app
 app = Flask(__name__)
 
+
+global camera_streaming, picam2
+
 # Camera streaming control variables
 camera_streaming = True
 
-# Initialize the camera only once at the start
+# Initialize the camera
 picam2 = Picamera2()
 picam2.preview_configuration.main.size = (640, 480)  # resolution
 picam2.preview_configuration.main.format = "RGB888"  # format
 picam2.configure("preview")
 picam2.start()
 
-# Camera thread function
 def generate_frames():
     while camera_streaming:
         frame = picam2.capture_array()
-        _, buffer = cv2.imencode('.jpg', frame)  # Convert  to JPEG format
+        _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
         frame_bytes = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-        time.sleep(0.05)  # Adjust frame rate
+        time.sleep(0.05)  # Adjust frame rate here
 
 # Route to start or stop the stream
 @app.route('/toggle_stream')
 def toggle_stream():
-    global camera_streaming, picam2
     
     if camera_streaming:
-        picam2.stop()
+        # picam2.stop()
         camera_streaming = False
         return "Stream started"
     else:
-        picam2.start()
+        # picam2.start()
         camera_streaming = False
         return "Stream stopped"
 
