@@ -31,15 +31,7 @@ def generate_frames():
 @app.route('/toggle_stream')
 def toggle_stream():
     global camera_streaming
-
-    if camera_streaming:
-        # picam2.stop()
-        camera_streaming = False
-        return "Stream started"
-    else:
-        # picam2.start()
-        camera_streaming = False
-        return "Stream stopped"
+    camera_streaming = not camera_streaming
 
 # Route to start video stream
 @app.route('/video_feed')
