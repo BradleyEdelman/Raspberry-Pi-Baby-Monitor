@@ -19,7 +19,7 @@ picam2.configure("preview")
 picam2.start()
 
 def generate_frames():
-    while True:
+    while camera_streaming:
         frame = picam2.capture_array()
         _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
         frame_bytes = buffer.tobytes()
