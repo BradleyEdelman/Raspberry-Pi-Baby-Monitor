@@ -6,15 +6,11 @@ import time
 # Initialize Flask app
 app = Flask(__name__)
 
-# Initialize the camera
-picam2 = Picamera2()
-picam2.preview_configuration.main.size = (640, 480)  # resolution
-picam2.preview_configuration.main.format = "RGB888"  # format
-picam2.configure("preview")
-picam2.start()
+# Initialize the camera (moved initialization inside routes to prevent multiple initializations)
+picam2 = None
 
 # Camera streaming control variables
-camera_streaming = True
+camera_streaming = False
 
 # Camera thread function
 def generate_frames():
@@ -26,19 +22,14 @@ def generate_frames():
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
         time.sleep(0.05)  # Adjust frame rate
 
-# Route to start video stream
-@app.route('/video_feed')
-def video_feed():
-    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
 # Route to start or stop the stream
 @app.route('/toggle_stream')
 def toggle_stream():
-    global camera_streaming
+    global camera_streaming, picam2
     
     if camera_streaming:
         # Stop the stream only if it's currently started
-        if picam2.is_running():
+        if picam2 and picam2.is_running():
             picam2.stop()
             camera_streaming = False
             return "Stream stopped"
@@ -46,24 +37,31 @@ def toggle_stream():
             return "Stream is already stopped"
     else:
         # Start the stream only if it's currently stopped
-        if not picam2.is_running():
+        if not picam2 or not picam2.is_running():
+            picam2 = Picamera2()
+            picam2.preview_configuration.main.size = (640, 480)  # resolution
+            picam2.preview_configuration.main.format = "RGB888"  # format
+            picam2.configure("preview")
             picam2.start()
             camera_streaming = True
             return "Stream started"
         else:
             return "Stream is already running"
 
+# Route to start video stream
+@app.route('/video_feed')
+def video_feed():
+    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # "design" the main page (w/ buttons)
 @app.route('/')
 def index():
-    return render_template_string("""
+    return render_template_string(""" 
         <html>
             <head><title>Raspberry Pi Video Stream</title></head>
             <body>
                 <h1>Raspberry Pi Video Stream</h1>
                 <img src="/video_feed" width="640" height="480">
-
                 <h3>Camera Stream Control</h3>
                 <button onclick="window.location.href='/toggle_stream'">Start/Stop Stream</button>
             </body>
