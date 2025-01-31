@@ -2,7 +2,6 @@ from flask import Flask, Response, render_template_string
 from picamera2 import Picamera2
 import cv2
 import time
-import threading
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -12,9 +11,10 @@ picam2 = Picamera2()
 picam2.preview_configuration.main.size = (640, 480)  # resolution
 picam2.preview_configuration.main.format = "RGB888"  # format
 picam2.configure("preview")
+picam2.start()
 
 # Camera streaming control variables
-camera_streaming = False
+camera_streaming = True
 led_state = "auto"  # "auto", "on", "off"
 
 # Camera thread function
