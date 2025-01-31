@@ -40,17 +40,34 @@ def video_feed():
 # "design" the main page (w/ buttons)
 @app.route('/')
 def index():
-    return render_template_string(""" 
+    return render_template_string("""
         <html>
-            <head><title>Raspberry Pi Video Stream</title></head>
+            <head>
+                <title>Raspberry Pi Video Stream</title>
+                <script>
+                    function toggleStream() {
+                        fetch('/toggle_stream', {
+                            method: 'GET',
+                        })
+                        .then(response => response.text())
+                        .then(text => {
+                            alert(text);  // Display the response from the server (Stream started/stopped)
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    }
+                </script>
+            </head>
             <body>
                 <h1>Raspberry Pi Video Stream</h1>
                 <img src="/video_feed" width="640" height="480">
                 <h3>Camera Stream Control</h3>
-                <button onclick="window.location.href='/toggle_stream'">Start/Stop Stream</button>
+                <button onclick="toggleStream()">Start/Stop Stream</button>
             </body>
         </html>
     """)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
