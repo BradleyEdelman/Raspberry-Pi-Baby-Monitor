@@ -30,6 +30,7 @@ def generate_frames():
 def toggle_stream():
     global camera_streaming
     camera_streaming = not camera_streaming
+    return "Stream " + ("started" if camera_streaming else "stopped")
 
 # Route to start video stream
 @app.route('/video_feed')
@@ -50,17 +51,6 @@ def index():
             </body>
         </html>
     """)
-
-# # "design" the main page
-# @app.route('/')
-# def index():
-#     return """<html>
-#                 <head><title>Raspberry Pi Video Stream</title></head>
-#                 <body>
-#                     <h1>Raspberry Pi Video Stream</h1>
-#                     <img src="/video_feed" width="640" height="480">
-#                 </body>
-#               </html>"""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
