@@ -8,24 +8,25 @@ app = Flask(__name__)
 
 # Initialize the camera
 picam2 = Picamera2()
-picam2.preview_configuration.main.size = (640, 480)  # Set resolution
-picam2.preview_configuration.main.format = "RGB888"  # Set format
+picam2.preview_configuration.main.size = (640, 480)  # resolution
+picam2.preview_configuration.main.format = "RGB888"  # format
 picam2.configure("preview")
 picam2.start()
 
 def generate_frames():
     while True:
         frame = picam2.capture_array()
-        _, buffer = cv2.imencode('.jpg', frame)  # Convert frame to JPEG format
+        _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
         frame_bytes = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-        time.sleep(0.05)  # Adjust frame rate if needed
+        time.sleep(0.05)  # Adjust frame rate here
 
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+# "design" the main page
 @app.route('/')
 def index():
     return """<html>

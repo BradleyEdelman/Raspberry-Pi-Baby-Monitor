@@ -101,7 +101,7 @@ This guide walks through the steps to set up the Raspberry Pi, install the neces
 
 
 
-## Step 4: Install system-level dependencies and stream video
+## Step 4: Install system-level dependencies and stream video on network
 
 1. **Install dependecies**
    - I had issues using picamera2 in a virtual environment so I recommend using the system environment
@@ -130,9 +130,14 @@ This guide walks through the steps to set up the Raspberry Pi, install the neces
    - Clone this github repository and run the stream.py file
 
    ```bash
+   cd /home/<username>/projects/baby_monitor
    git clone https://github.com/BradleyEdelman/Raspberry-Pi-Baby-Monitor.git
    python3 stream.py
    ```
 
 
+## Step 5: Stream off network
 
+
+sudo wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
+sudo apt install unzip
