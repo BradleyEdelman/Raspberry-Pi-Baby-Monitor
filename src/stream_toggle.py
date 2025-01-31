@@ -32,13 +32,13 @@ def toggle_stream():
     global camera_streaming, picam2
     
     if camera_streaming:
-        picam2.stop()
-        camera_streaming = False
-        return "Stream started"
+        if not picam2.is_running():
+            picam2.start()
+            return "Stream started"
     else:
-        picam2.start()
-        camera_streaming = True
-        return "Stream stopped"
+        if picam2.is_running():
+            picam2.stop()
+            return "Stream stopped"
 
 # Route to start video stream
 @app.route('/video_feed')
