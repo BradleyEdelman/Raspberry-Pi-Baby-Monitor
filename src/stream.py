@@ -6,6 +6,11 @@ import time
 # Initialize Flask app
 app = Flask(__name__)
 
+global camera_streaming, picam2
+
+# Camera streaming control variables
+camera_streaming = True
+
 # Initialize the camera
 picam2 = Picamera2()
 picam2.preview_configuration.main.size = (640, 480)  # resolution
