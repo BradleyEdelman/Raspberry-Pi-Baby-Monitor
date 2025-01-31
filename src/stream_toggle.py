@@ -1,4 +1,4 @@
-from flask import Flask, Response
+from flask import Flask, Response, render_template_string
 from picamera2 import Picamera2
 import cv2
 import time
@@ -36,31 +36,31 @@ def generate_frames():
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# # "design" the main page (w/ buttons)
-# @app.route('/')
-# def index():
-#     return render_template_string(""" 
-#         <html>
-#             <head><title>Raspberry Pi Video Stream</title></head>
-#             <body>
-#                 <h1>Raspberry Pi Video Stream</h1>
-#                 <img src="/video_feed" width="640" height="480">
-#                 <h3>Camera Stream Control</h3>
-#                 <button onclick="window.location.href='/toggle_stream'">Start/Stop Stream</button>
-#             </body>
-#         </html>
-#     """)
-
-# "design" the main page
+# "design" the main page (w/ buttons)
 @app.route('/')
 def index():
-    return """<html>
-                <head><title>Raspberry Pi Video Stream</title></head>
-                <body>
-                    <h1>Raspberry Pi Video Stream</h1>
-                    <img src="/video_feed" width="640" height="480">
-                </body>
-              </html>"""
+    return render_template_string(""" 
+        <html>
+            <head><title>Raspberry Pi Video Stream</title></head>
+            <body>
+                <h1>Raspberry Pi Video Stream</h1>
+                <img src="/video_feed" width="640" height="480">
+                <h3>Camera Stream Control</h3>
+                <button onclick="window.location.href='/toggle_stream'">Start/Stop Stream</button>
+            </body>
+        </html>
+    """)
+
+# # "design" the main page
+# @app.route('/')
+# def index():
+#     return """<html>
+#                 <head><title>Raspberry Pi Video Stream</title></head>
+#                 <body>
+#                     <h1>Raspberry Pi Video Stream</h1>
+#                     <img src="/video_feed" width="640" height="480">
+#                 </body>
+#               </html>"""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
