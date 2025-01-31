@@ -1,34 +1,31 @@
 from flask import Flask, render_template, Response
-import cv2
+import subprocess
 
 app = Flask(__name__)
 
 def gen_video():
-    # Open the camera (use 0 for the default camera or specify another index)
-    cap = cv2.VideoCapture(0)
+    print("Starting video stream...")
+    command = [
+        "libcamera-vid",
+        "-t", "0",  # infinite time, continuous stream
+        "--inline",  # inline MJPEG frames
+        "--bitrate", "2000000",  # set bitrate for quality
+        "-o", "-",  # output to stdout (pipe)
+    ]
     
-    if not cap.isOpened():
-        print("Error: Could not open video stream")
-        return
+    proc = subprocess.Popen(command, stdout=subprocess.PIPE)
     
+    print("Process started, reading frames...")
     while True:
-        # Capture frame-by-frame
-        ret, frame = cap.read()
-        
-        if not ret:
+        frame = proc.stdout.read(1024)
+        if frame:
+            print("Sending frame...")
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        else:
+            print("No frame received, stopping.")
             break
-        
-        # Encode the frame as JPEG
-        ret, jpeg = cv2.imencode('.jpg', frame)
-        
-        if not ret:
-            break
-        
-        # Yield each frame to the client
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
 
-    cap.release()
 
 @app.route('/')
 def index():
