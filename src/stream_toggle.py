@@ -44,6 +44,10 @@ def toggle_stream():
             return "Stream is already stopped"
         else:
             picam2.stop()
+            picam2 = Picamera2()
+            picam2.preview_configuration.main.size = (640, 480)  # resolution
+            picam2.preview_configuration.main.format = "RGB888"  # format
+            picam2.configure("preview")
 
 # Route to start video stream
 @app.route('/video_feed')
