@@ -1,12 +1,10 @@
-from flask import Flask, Response, render_template_string
+from flask import Flask, Response
 from picamera2 import Picamera2
 import cv2
 import time
 
 # Initialize Flask app
 app = Flask(__name__)
-
-global camera_streaming
 
 # Camera streaming control variables
 camera_streaming = True
@@ -65,4 +63,4 @@ def index():
               </html>"""
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
