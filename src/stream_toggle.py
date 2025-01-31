@@ -1,4 +1,4 @@
-from flask import Flask, Response, render_template_string
+from flask import Flask, Response, render_template_string, redirect
 from picamera2 import Picamera2
 import cv2
 import time
