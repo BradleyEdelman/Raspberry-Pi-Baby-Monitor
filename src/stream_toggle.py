@@ -31,7 +31,7 @@ def generate_frames():
 def toggle_stream():
     global camera_streaming, picam2
     
-    if camera_streaming:
+    if camera_streaming is True:
         if not picam2.is_running():
             picam2.start()
             return "Stream started"
