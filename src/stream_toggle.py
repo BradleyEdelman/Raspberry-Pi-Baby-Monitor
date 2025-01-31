@@ -6,15 +6,15 @@ import time
 # Initialize Flask app
 app = Flask(__name__)
 
-# Initialize the camera (moved initialization inside routes to prevent multiple initializations)
-picam2 = None
-
 # Camera streaming control variables
-camera_streaming = False
+camera_streaming = True
+
+# Initialize the camera only once at the start
 picam2 = Picamera2()
 picam2.preview_configuration.main.size = (640, 480)  # resolution
 picam2.preview_configuration.main.format = "RGB888"  # format
 picam2.configure("preview")
+picam2.start()
 
 # Camera thread function
 def generate_frames():
@@ -32,18 +32,13 @@ def toggle_stream():
     global camera_streaming, picam2
     
     if camera_streaming:
-        # Start the stream only if it's currently stopped
-        if picam2 and picam2.is_running():
-            return "Stream is already running"
-        else:
-            picam2.start()
-            return "Stream started"
+        picam2.stop()
+        camera_streaming = False
+        return "Stream started"
     else:
-        # Stop the stream only if it's currently started
-        if not picam2 or not picam2.is_running():
-            return "Stream is already stopped"
-        else:
-            picam2.stop()
+        picam2.start()
+        camera_streaming = True
+        return "Stream stopped"
 
 # Route to start video stream
 @app.route('/video_feed')
