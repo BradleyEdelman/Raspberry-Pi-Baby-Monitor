@@ -26,10 +26,10 @@ def generate_frames():
         time.sleep(0.05)  # Adjust frame rate here
 
 # Route to start or stop the stream
-# @app.route('/toggle_stream')
-# def toggle_stream():
-#     global camera_streaming
-#     camera_streaming = not camera_streaming
+@app.route('/toggle_stream')
+def toggle_stream():
+    global camera_streaming
+    camera_streaming = not camera_streaming
 
 # Route to start video stream
 @app.route('/video_feed')
