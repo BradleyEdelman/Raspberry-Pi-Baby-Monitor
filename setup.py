@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="baby-monitor",  # Name of the project
-    version="0.1.0",  # Initial version
-    packages=find_packages(),  # Automatically finds and includes all sub-packages
+    name="baby-monitor",
+    version="v1.0.0", 
+    packages=find_packages(),
     install_requires=[
         "opencv-python==4.7.0.72",
         "flask==2.2.3",
