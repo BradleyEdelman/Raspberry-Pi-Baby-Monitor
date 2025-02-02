@@ -3,16 +3,16 @@ from picamera2 import Picamera2
 import cv2
 import time
 
-# Initialize Flask app
+# Initialize Flask
 app = Flask(__name__)
 
-# Camera streaming control variables
+# Turn on camera streaming
 camera_streaming = True
 
 # Initialize the camera
 picam2 = Picamera2()
-picam2.preview_configuration.main.size = (640, 480)  # resolution
-picam2.preview_configuration.main.format = "RGB888"  # format
+picam2.preview_configuration.main.size = (640, 480) 
+picam2.preview_configuration.main.format = "RGB888" 
 picam2.configure("preview")
 picam2.start()
 
@@ -23,22 +23,21 @@ def generate_frames():
         frame_bytes = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-        time.sleep(0.05)  # Adjust frame rate here
+        time.sleep(0.05)  # Frame rate? 
 
 # Route to start or stop the stream
 @app.route('/toggle_stream')
 def toggle_stream():
     global camera_streaming
     camera_streaming = not camera_streaming
-    # return "Stream " + ("started" if camera_streaming else "stopped")
-    return redirect('/')
+    return redirect('/') # Send back to main page
 
 # Route to start video stream
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# "design" the main page (w/ buttons)
+# "design" the webpage
 @app.route('/')
 def index():
     return render_template_string(""" 

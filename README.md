@@ -1,12 +1,13 @@
 # Raspberry Pi Baby Monitor
+**v1.0.0**
 
 ## Overview
-This project describes a cost-effective and customizable baby monitor using a Raspberry Pi. Cost effectiveness is a relative term, depending on which store-bought option you are looking at :), but I was able to source the parts for ~160 CHF (including shipping in and to CH). I also dont currently have access to a soldering iron, so the parts I sourced are completely plug-and-play. For now, I'm building into the monitor support for live video streaming (url), infrared night vision, and hopefully dynamic control of an IR LED based on ambient light detection. In the future, I think it would be fun to expand this to include audio streaming and real-time behavioral classification (edge AI), and to stream to an open-source app with push notifications. I'm sure the baby will be too big for these features to be useful by the time I get them up and running, but why not dream!
+This project describes a cost-effective and customizable baby monitor using a Raspberry Pi. Cost effectiveness is a relative term, depending on which store-bought option you are looking at :), but I was able to source the parts for ~160 CHF (including shipping in and to CH). I also dont currently have access to a soldering iron, so the parts I sourced are completely plug-and-play. For now, I'm building into the monitor support for live video streaming (url), infrared night vision, and hopefully dynamic control of an IR LED based on ambient light detection. In the future, I think it would be fun to expand this to include real-time behavioral classification (edge AI), and to stream to an open-source app with push notifications. I'm sure the baby will be too big for these features to be useful by the time I get them up and running, but why not dream!
 
-## Features
-- **Live Video Streaming**: View the video feed from a web browser or compatible apps on a cell phone.
-- **Night Vision Support**: Equipped with an IR camera module and IR LED for low-light environments (sleep time).
-- **Dynamic Lighting**: IR LED turns on/off based on ambient light using a light sensor.
+## Features (as desired)
+- **Live Video Streaming**: View the video feed from a web browser on a computer or smart phone.
+- **Night Vision Support**: Use an IR camera module and IR LED for low-light environments (sleep time).
+<!-- - **Dynamic Lighting**: Turn on/off IR LED turns manually or connect it to a light sensor for automatic adjustments. -->
 
 ## Parts List
 | Component                                      | Description
@@ -23,10 +24,12 @@ This project describes a cost-effective and customizable baby monitor using a Ra
 RaspberryPiBabyMonitor/
 │
 ├── src/
-│ └── stream.py
+│ ├── stream.py
+│ └── stream_toggle.py
 │
 ├── docs/
 │ ├── INSTALLATION.md
+│ ├── SETUP.md
 │ └── TROUBLESHOOTING.md
 │
 ├── requirements.txt
@@ -39,23 +42,44 @@ RaspberryPiBabyMonitor/
 ## Getting Started
 1. **Assemble the hardware**:
    - Connect the camera module to the Raspberry Pi.
-   - Attach the IR LED emitter and light sensor using the respective JST connectors.
+   <!-- - Attach the IR LED and light sensor using the respective JST connectors. -->
    
 2. **Set up the software**:
-   - Follow the detailed instructions in [Step 1 and Step 2 of the INSTALLATION.md](docs/INSTALLATION.md#step-1-flashing-the-sd-card-with-raspberry-pi-os) to flash Raspberry Pi OS and set up SSH and network configuration.
-   - Clone this repository and install the required dependencies by following [Step 4 of the INSTALLATION.md](docs/INSTALLATION.md#step-4-setup-project-environment-on-raspberry-pi).
+   - Follow the detailed instructions in [SETUP.md](docs/SETUP.md#step-1-flashing-the-sd-card-with-raspberry-pi-os) to flash Raspberry Pi OS, set up SSH and network configuration, and connect the hardware
+   - Clone this repository and install the required dependencies by following [INSTALLATION.md](docs/INSTALLATION.md#step-4-setup-project-environment-on-raspberry-pi).
 
 3. **Run the application**:
-   - Execute `stream.py` to start the video feed.
-   - Use a web browser to view the stream by visiting `http://<raspberry_pi_ip>:<port>`.
+   - Execute the desired version of `stream.py` to start the video feed and additional features.
+   - Use a web browser on a computer or smart phone to view the stream by visiting `http://<raspberry_pi_ip>:5000`.
 
-## Usage
+   - Here's an explanation of the different stream.py versions:
+
+
+## Harware Rquirements and Functionality
+   stream.py (Basic video streaming)
+   - Raspberry Pi 4
+   - Raspberry Pi Camera Module (NoIR v2.1 or regular)
+   - Wi-Fi connection
+
+   stream_toggle.py (+ toggle stream on/off)
+   - Raspberry Pi 4
+   - Raspberry Pi Camera Module (NoIR v2.1 or regular)
+   - Wi-Fi connection
+
+   <!-- stream_LED.py (+ manual on/off LED control)
+   - Raspberry Pi 4
+   - Raspberry Pi Camera Module (NoIR v2.1 or regular)
+   - Wi-Fi connection
+   - Adafruit High Power IR LED Emitter -->
+
+
+<!-- ## Usage
 - Visit `http://<raspberry_pi_ip>:<port>` in a browser to view the live stream.
-- The IR LED will automatically turn on when the light sensor detects low ambient light.
+- The IR LED will automatically turn on when the light sensor detects low ambient light. -->
 
 ## Future Plans
-- Add audio streaming via a microphone.
-- Integrate edge AI models for real-time monitoring.
+- Automatic LED adjustments.
+- Edge AI models for real-time monitoring.
 - Extend support for mobile apps.
 
 
