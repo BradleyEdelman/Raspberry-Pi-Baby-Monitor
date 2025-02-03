@@ -51,18 +51,44 @@ def set_led(state):
 
 # "design" the webpage
 @app.route('/')
+@app.route('/')
 def index():
-    return render_template_string(""" 
+    return render_template_string("""
         <html>
-            <head><title>Raspberry Pi Video Stream</title></head>
+            <head>
+                <title>Raspberry Pi Video Stream</title>
+                <style>
+                    .led-button {
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        border: none;
+                        cursor: pointer;
+                        margin: 5px;
+                    }
+                    .active { background-color: green; color: white; }
+                    .inactive { background-color: lightgray; color: black; }
+                </style>
+            </head>
             <body>
                 <h1>Raspberry Pi Video Stream</h1>
                 <img src="/video_feed" width="640" height="480">
+                
+                <h3>LED Control</h3>
+                <button class="led-button {% if led_state == 'auto' %}active{% else %}inactive{% endif %}" 
+                        onclick="window.location.href='/set_led/auto'">Auto LED</button>
+                
+                <button class="led-button {% if led_state == 'on' %}active{% else %}inactive{% endif %}" 
+                        onclick="window.location.href='/set_led/on'">LED On</button>
+                
+                <button class="led-button {% if led_state == 'off' %}active{% else %}inactive{% endif %}" 
+                        onclick="window.location.href='/set_led/off'">LED Off</button>
+
                 <h3>Camera Stream Control</h3>
                 <button onclick="window.location.href='/toggle_stream'">Start/Stop Stream</button>
             </body>
         </html>
-    """)
+    """, led_state=led_state)  # <-- Pass `led_state` explicitly
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
