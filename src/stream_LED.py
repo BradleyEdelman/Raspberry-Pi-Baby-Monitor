@@ -20,13 +20,14 @@ picam2.start()
 led_state = "auto"  # Options: "auto", "on", "off"
 
 def generate_frames():
-    while camera_streaming:
-        frame = picam2.capture_array()
-        _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
-        frame_bytes = buffer.tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-        time.sleep(0.05)  # Frame rate?
+    while True:
+        while camera_streaming:
+            frame = picam2.capture_array()
+            _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
+            frame_bytes = buffer.tobytes()
+            yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+            time.sleep(0.05)  # Frame rate?
 
 # Route to start or stop the stream
 @app.route('/toggle_stream')

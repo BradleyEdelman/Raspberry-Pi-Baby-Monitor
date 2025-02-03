@@ -14,12 +14,13 @@ picam2.configure("preview")
 picam2.start()
 
 def generate_frames():
-    frame = picam2.capture_array()
-    _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
-    frame_bytes = buffer.tobytes()
-    yield (b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-    time.sleep(0.05)  # Frame rate? 
+    while True:
+        frame = picam2.capture_array()
+        _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
+        frame_bytes = buffer.tobytes()
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+        time.sleep(0.05)  # Frame rate? 
 
 # Route to start video stream
 @app.route('/video_feed')
