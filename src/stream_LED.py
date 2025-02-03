@@ -40,14 +40,14 @@ def toggle_stream():
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# Route to control LED state
-@app.route('/set_led/<state>')
-def set_led(state):
-    global led_state
-    if state in ["auto", "on", "off"]:
-        led_state = state
-        # TO DO: Control LED here
-    return redirect('/') # Send back to main page
+# # Route to control LED state
+# @app.route('/set_led/<state>')
+# def set_led(state):
+#     global led_state
+#     if state in ["auto", "on", "off"]:
+#         led_state = state
+#         # TO DO: Control LED here
+#     return redirect('/') # Send back to main page
 
 # "design" the webpage
 @app.route('/')
