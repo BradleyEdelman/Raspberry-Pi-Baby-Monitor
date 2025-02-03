@@ -2,22 +2,7 @@
 
 ## Step 1: Install system-level dependencies and stream video on network
 
-1. **Install dependecies**
-   - I had various issues installing and access certain libraries from a virtual environment, so I recommend using system level installations.
-   - SSH into the Raspberry Pi and type the following commands to install dependecies for libcamera, picamera2, GStreamer, OpenCV, and Flask:
-
-   ```bash
-   sudo apt install python3-pip
-   sudo apt-get update
-   sudo apt-get install -y libcamera-dev
-   sudo apt-get install -y gstreamer1.0-tools
-   sudo apt-get install -y gstreamer1.0-plugins-base
-   sudo apt-get install -y gstreamer1.0-plugins-good
-   sudo apt-get install -y python3-opencv
-   sudo apt-get install -y python3-flask
-   ```
-
-2. **Create a project directory**
+1. **Create a project directory**
    - Create a "baby monitor" projects directory, as follows:
 
    ```bash
@@ -25,13 +10,24 @@
    mkdir -p /home/<username>/projects/baby_monitor
    ```
 
-5. **Clone the repository**
+2. **Clone the repository**
    - Clone this github repository:
 
    ```bash
    cd /home/<username>/projects/baby_monitor
    git clone https://github.com/BradleyEdelman/Raspberry-Pi-Baby-Monitor.git
-   cd /home/<username>/Raspberry-Pi-Baby-Monitor/src
+   ```
+
+3. **Install system-level dependencies**
+
+1. **Install dependecies**
+   - I had various issues installing and access certain libraries from a virtual environment, so I recommend using system level installations.
+   - Navigate to the repository folder and run the install.sh script. This will install system-level dependencies for libcamera, picamera2, GStreamer, OpenCV, and Flask, as well as other python libraries necessary to stream the video.
+
+   ```bash
+   cd /home/<username>/Raspberry-Pi-Baby-Monitor
+   chmod +x install.ch
+   ./install.sh
    ```
 
    - Run the script of your choosing based on the desired functionality:
