@@ -36,8 +36,8 @@
    - Before plugging the Raspberry Pi into the power source, insert the the SD card and camera module
    - Make sure to plug the camera ribbon into the "camera" slot rather than the "display" slot, and in the correct pin orientation:
 
-![Camera Module Front](rpi_cam1.jpg)
-![Camera Module Back](rpi_cam2.jpg)
+<img src="rpi_cam1.jpg" alt="Camera Module Front" width="500" />
+<img src="rpi_cam2.jpg" alt="Camera Module Back" width="500" />
 
    - Connect the Raspberry Pi to a power source and wait for the boot process to complete.
 

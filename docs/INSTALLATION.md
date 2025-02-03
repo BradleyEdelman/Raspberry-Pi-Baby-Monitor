@@ -26,7 +26,7 @@
 
    ```bash
    cd /home/<username>/Raspberry-Pi-Baby-Monitor
-   chmod +x install.ch
+   chmod +x install.sh
    ./install.sh
    ```
 
