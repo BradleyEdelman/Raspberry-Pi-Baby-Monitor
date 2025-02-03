@@ -11,6 +11,7 @@ sudo apt-get install -y gstreamer1.0-plugins-base
 sudo apt-get install -y gstreamer1.0-plugins-good
 sudo apt-get install -y python3-opencv
 sudo apt-get install -y python3-flask
+sudo apt-get install -y python3-rpi.gpio
 
 echo "Installing python dependencies..."
 pip install --upgrade pip

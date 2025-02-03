@@ -1,6 +1,6 @@
 from flask import Flask, Response, render_template_string, redirect
 from picamera2 import Picamera2
-import cv2, time
+import cv2, time, board, busio, adafruit_tsl2591
 import RPi.GPIO as GPIO
 
 # Initialize Flask
@@ -17,10 +17,14 @@ picam2.configure("preview")
 picam2.start()
 
 # Initialize LED state
-led_state = "off"  # Options: "on", "off"
+led_state = "auto"  # Options: "auto", "on", "off"
 LED_PIN = 18  # Define GPIO pin
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(LED_PIN, GPIO.OUT)
+
+# Initialize I2C connection to light sensor
+i2c = busio.I2C(board.SCL, board.SDA)
+sensor = adafruit_tsl2591.TSL2591(i2c)
 
 def generate_frames():
     while camera_streaming:
@@ -54,7 +58,7 @@ def update_led():
 @app.route('/set_led/<state>')
 def set_led(state):
     global led_state
-    if state in ["on", "off"]:
+    if state in ["auto", "on", "off"]:
         led_state = state
         # TO DO: Control LED here
     return redirect('/') # Send back to main page
@@ -83,6 +87,9 @@ def index():
                 <img src="/video_feed" width="640" height="480">
                 
                 <h3>LED Control</h3>
+                <button class="led-button {% if led_state == 'auto' %}active{% else %}inactive{% endif %}" 
+                        onclick="window.location.href='/set_led/auto'">Auto LED</button>
+                
                 <button class="led-button {% if led_state == 'on' %}active{% else %}inactive{% endif %}" 
                         onclick="window.location.href='/set_led/on'">LED On</button>
                 
