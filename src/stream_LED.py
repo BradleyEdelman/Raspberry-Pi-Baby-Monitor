@@ -20,14 +20,13 @@ picam2.start()
 led_state = "auto"  # Options: "auto", "on", "off"
 
 def generate_frames():
-    while True:
-        while camera_streaming:
-            frame = picam2.capture_array()
-            _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
-            frame_bytes = buffer.tobytes()
-            yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-            time.sleep(0.05)  # Frame rate?
+    while camera_streaming:
+        frame = picam2.capture_array()
+        _, buffer = cv2.imencode('.jpg', frame)  # Convert to JPEG format
+        frame_bytes = buffer.tobytes()
+        yield (b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+        time.sleep(0.05)  # Frame rate?
 
 # Route to start or stop the stream
 @app.route('/toggle_stream')
@@ -50,44 +49,29 @@ def set_led(state):
         # TO DO: Control LED here
     return redirect('/') # Send back to main page
 
-# Main page with dynamically styled buttons
+# "design" the webpage
 @app.route('/')
 def index():
-    return render_template_string(f"""
+    return render_template_string("""
         <html>
             <head>
                 <title>Raspberry Pi Video Stream</title>
-                <style>
-                    .led-button {{
-                        padding: 10px 20px;
-                        font-size: 16px;
-                        border: none;
-                        cursor: pointer;
-                        margin: 5px;
-                    }}
-                    .active {{ background-color: green; color: white; }}
-                    .inactive {{ background-color: lightgray; color: black; }}
-                </style>
             </head>
             <body>
                 <h1>Raspberry Pi Video Stream</h1>
                 <img src="/video_feed" width="640" height="480">
                 
                 <h3>LED Control</h3>
-                <button class="led-button {'active' if led_state == 'auto' else 'inactive'}" 
-                        onclick="window.location.href='/set_led/auto'">Auto LED</button>
-                
-                <button class="led-button {'active' if led_state == 'on' else 'inactive'}" 
-                        onclick="window.location.href='/set_led/on'">LED On</button>
-                
-                <button class="led-button {'active' if led_state == 'off' else 'inactive'}" 
-                        onclick="window.location.href='/set_led/off'">LED Off</button>
+                <button onclick="window.location.href='/set_led/auto'">Auto LED</button>
+                <button onclick="window.location.href='/set_led/on'">LED On</button>
+                <button onclick="window.location.href='/set_led/off'">LED Off</button>
 
                 <h3>Camera Stream Control</h3>
                 <button onclick="window.location.href='/toggle_stream'">Start/Stop Stream</button>
             </body>
         </html>
     """)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
