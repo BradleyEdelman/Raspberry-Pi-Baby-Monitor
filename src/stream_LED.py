@@ -16,6 +16,9 @@ picam2.preview_configuration.main.format = "RGB888"
 picam2.configure("preview")
 picam2.start()
 
+# Initialize LED state
+led_state = "auto"  # Options: "auto", "on", "off"
+
 def generate_frames():
     while camera_streaming:
         frame = picam2.capture_array()
@@ -37,17 +40,14 @@ def toggle_stream():
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# Initialize LED state
-led_state = "auto"  # Options: "auto", "on", "off"
-
-# # Route to control LED state
-# @app.route('/set_led/<state>')
-# def set_led(state):
-#     global led_state
-#     if state in ["auto", "on", "off"]:
-#         led_state = state
-#         # TO DO: Control LED here
-#     return redirect('/') # Send back to main page
+# Route to control LED state
+@app.route('/set_led/<state>')
+def set_led(state):
+    global led_state
+    if state in ["auto", "on", "off"]:
+        led_state = state
+        # TO DO: Control LED here
+    return redirect('/') # Send back to main page
 
 # "design" the webpage
 @app.route('/')
