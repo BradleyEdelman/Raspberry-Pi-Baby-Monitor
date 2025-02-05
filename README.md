@@ -42,11 +42,11 @@ RaspberryPiBabyMonitor/
 ```
 
 ## Getting Started
-1. **Assemble the hardware [SETUP_HARDWARE.md](docs/SETUP.md#step-1-flashing-the-sd-card-with-raspberry-pi-os)**:
+1. **Assemble the hardware [SETUP_HARDWARE](docs/SETUP_HARDWARE.md#step-1-flashing-the-sd-card-with-raspberry-pi-os)**:
    - Connect the camera module to the Raspberry Pi (_Steps 1-4_).
    - Attach the IR LED and light sensor using the respective JST connectors, if desired (_Step 5_)
    
-2. **Set up the software [SETUP_SOFTWARE.md](docs/SETUP.md#step-1-flashing-the-sd-card-with-raspberry-pi-os)**:
+2. **Set up the software [SETUP_SOFTWARE](docs/SETUP_SOFTWARE.md#step-1-flashing-the-sd-card-with-raspberry-pi-os)**:
    - Flash Raspberry Pi OS and create a project directory via SSH
    - Clone this repository and install the required dependencies
 
