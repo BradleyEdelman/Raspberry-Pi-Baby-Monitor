@@ -57,7 +57,7 @@ RaspberryPiBabyMonitor/
    - Use a web browser on a computer or smart phone to view the stream by visiting `http://<raspberry_pi_ip>:5000`.
 
 
-## Harware Rquirements and Functionality
+## Harware Requirements and Functionality
    stream.py (Basic video streaming)
    - Raspberry Pi 4
    - Raspberry Pi Camera Module (NoIR v2.1 or regular)
