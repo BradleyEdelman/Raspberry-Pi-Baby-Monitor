@@ -1,5 +1,7 @@
 # Raspberry Pi Baby Monitor
-**v1.1.0**
+
+**Latest Version: v1.1.0**  
+➡ Added LED control for manual and automatic lighting based on ambient light detection.
 
 ## Overview
 This project describes a cost-effective and customizable baby monitor using a Raspberry Pi. Cost effectiveness is a relative term, depending on which store-bought option you are looking at :), but I was able to source the parts for ~160 CHF (including shipping in and to CH). I also dont currently have access to a soldering iron, so the parts I sourced are completely plug-and-play. For now, I'm building into the monitor support for live video streaming (url), infrared night vision, and hopefully dynamic control of an IR LED based on ambient light detection. In the future, I think it would be fun to expand this to include real-time behavioral classification (edge AI), and to stream to an open-source app with push notifications. I'm sure the baby will be too big for these features to be useful by the time I get them up and running, but why not dream!
