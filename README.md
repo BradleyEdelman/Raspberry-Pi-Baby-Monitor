@@ -25,11 +25,13 @@ RaspberryPiBabyMonitor/
 │
 ├── src/
 │ ├── stream.py
-│ └── stream_toggle.py
+│ ├── stream_toggle.py
+│ └── stream_LED.py
 │
 ├── docs/
-│ ├── INSTALLATION.md
-│ ├── SETUP.md
+│ ├── images/
+│ ├── SETUP_HARDWARE.md
+│ ├── SETUP_SOFTWARE.md
 │ └── TROUBLESHOOTING.md
 │
 ├── requirements.txt
@@ -40,13 +42,13 @@ RaspberryPiBabyMonitor/
 ```
 
 ## Getting Started
-1. **Assemble the hardware**:
-   - Connect the camera module to the Raspberry Pi.
-   - Attach the IR LED and light sensor using the respective JST connectors, if desired.
+1. **Assemble the hardware [SETUP_HARDWARE.md](docs/SETUP.md#step-1-flashing-the-sd-card-with-raspberry-pi-os)**:
+   - Connect the camera module to the Raspberry Pi (_Steps 1-4_).
+   - Attach the IR LED and light sensor using the respective JST connectors, if desired (_Step 5_)
    
-2. **Set up the software**:
-   - Follow the detailed instructions in [SETUP.md](docs/SETUP.md#step-1-flashing-the-sd-card-with-raspberry-pi-os) to flash Raspberry Pi OS, set up SSH and network configuration, and connect the hardware
-   - Clone this repository and install the required dependencies by following [INSTALLATION.md](docs/INSTALLATION.md#step-4-setup-project-environment-on-raspberry-pi).
+2. **Set up the software [SETUP_SOFTWARE.md](docs/SETUP.md#step-1-flashing-the-sd-card-with-raspberry-pi-os)**:
+   - Flash Raspberry Pi OS and create a project directory via SSH
+   - Clone this repository and install the required dependencies
 
 3. **Run the application**:
    - Execute the desired version of `stream.py` (see next section) to start the video feed and additional features.
@@ -74,6 +76,3 @@ RaspberryPiBabyMonitor/
 - Automatic LED adjustments.
 - Edge AI models for real-time monitoring.
 - Extend support for mobile apps.
-
-
-

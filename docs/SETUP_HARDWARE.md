@@ -32,18 +32,22 @@
 
 
 ## Step 2: Connect Hardware
+
 1. **Insert SD card and Camera**:
    - Before plugging the Raspberry Pi into the power source, insert the the SD card and camera module
    - Make sure to plug the camera ribbon into the "camera" slot rather than the "display" slot, and in the correct pin orientation:
 
-<img src="rpi_cam1.jpg" alt="Camera Module Front" width="500" />
-<img src="rpi_cam2.jpg" alt="Camera Module Back" width="500" />
+   <p align="center">
+      <img src="images/rpi_cam1.jpg" alt="Camera Module Front" width="35%" />
+      <img src="images/rpi_cam2.jpg" alt="Camera Module Back" width="35%" />
+   </p>
 
    - Connect the Raspberry Pi to a power source and wait for the boot process to complete.
 
 
 
 ## Step 3: Set Up SSH Access (for headless setup)
+
 1. **Find the Pi’s IP Address**:  
    - Make sure your client (e.g. desktop/laptop) is on the same Wi-Fi network as the Raspberry Pi host.
    - If the Raspberry Pi is connected to a monitor (e.g. for initial setup), the device should tell you its IP address once it is fully booted.
@@ -66,6 +70,7 @@
 
 
 ## Step 4: Test camera (optional)
+
 1. **Update the System**:  
    - SSH into the host and run the following commands to ensure your system is up-to-date:
    
@@ -114,11 +119,12 @@
 
    See this website for a [pinout diagram](https://www.youngwonks.com/blog/Raspberry-Pi-4-Pinout) of the Raspberry Pi 4, and double check the back of the LED emitter to clarify wire identification.
    
-   <img src="LED_emitter.jpg" alt="LED Emitter Reverse Side" width="250" />
+   <img src="images/LED_emitter.png" alt="LED Emitter Reverse Side" width="250" />
 
    While wire color is fairly standard, these labels will ensure that the correct wire is used for each purpose.
 
-   | LED Wire                | Raspberry Pi Pin |------------ |-----------------------------------------------------------|
-   | IN (control)            | Any GPIO pin (e.g. GPIO 18/pin 12) 
-   | V+ (power)              | 5V (pin 2 or 4)
-   | GND (ground)            | GND (pin 6, 9, 14, etc.)
+   | **LED Wire**     | **Raspberry Pi Pin**                        |
+   |------------------|---------------------------------------------|
+   | **IN (control)** | Any GPIO pin (e.g., **GPIO18 / Pin 12**)    |
+   | **V+ (power)**   | **5V (Pin 2 or 4)**                         |
+   | **GND (ground)** | **GND (Pin 6, 9, 14, etc.)**                |
