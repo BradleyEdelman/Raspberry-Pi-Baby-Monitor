@@ -41,6 +41,8 @@
 
    - Connect the Raspberry Pi to a power source and wait for the boot process to complete.
 
+
+
 ## Step 3: Set Up SSH Access (for headless setup)
 1. **Find the Pi’s IP Address**:  
    - Make sure your client (e.g. desktop/laptop) is on the same Wi-Fi network as the Raspberry Pi host.
@@ -64,7 +66,6 @@
 
 
 ## Step 4: Test camera (optional)
-
 1. **Update the System**:  
    - SSH into the host and run the following commands to ensure your system is up-to-date:
    
@@ -103,3 +104,21 @@
 
    - You will get prompted for the Raspberry Pi password again.
    - View test image and video on the client to make sure the video is capturing frames properly
+
+
+
+## Step 5: Attach LED emitter (optional)
+   - Connect the LED emitter to the Raspberry Pi using the JST socket cable. The LED emitted that I include here has a 3-pin STEMMA JST slot. I had a lot of trouble finding a 3-pin cable in CH, so I ordered a 4-pin version and whittled off the fourth slot and some obstructions on top with a small swiss army knife. The plastic is quite thin and is cut easily. After this, the connector slid right into the pins.
+
+   - Attach the three female headers to the below Raspberry Pi pins:
+
+   See this website for a [pinout diagram](https://www.youngwonks.com/blog/Raspberry-Pi-4-Pinout) of the Raspberry Pi 4, and double check the back of the LED emitter to clarify wire identification.
+   
+   <img src="LED_emitter.jpg" alt="LED Emitter Reverse Side" width="250" />
+
+   While wire color is fairly standard, these labels will ensure that the correct wire is used for each purpose.
+
+   | LED Wire                | Raspberry Pi Pin |------------ |-----------------------------------------------------------|
+   | IN (control)            | Any GPIO pin (e.g. GPIO 18/pin 12) 
+   | V+ (power)              | 5V (pin 2 or 4)
+   | GND (ground)            | GND (pin 6, 9, 14, etc.)

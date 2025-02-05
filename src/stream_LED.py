@@ -43,20 +43,13 @@ def toggle_stream():
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# LED control
-def update_led():
-    if led_state == "on":
-        GPIO.output(LED_PIN, GPIO.HIGH)
-    elif led_state == "off":
-        GPIO.output(LED_PIN, GPIO.LOW)
-
 # Route to control LED state
 @app.route('/set_led/<state>')
 def set_led(state):
     global led_state
     if state in ["on", "off"]:
         led_state = state
-        # TO DO: Control LED here
+        GPIO.output(LED_PIN, GPIO.HIGH if led_state == "on" else GPIO.LOW)  # Control LED
     return redirect('/') # Send back to main page
 
 # "design" the webpage

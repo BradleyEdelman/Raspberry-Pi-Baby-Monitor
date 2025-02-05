@@ -7,17 +7,17 @@ This project describes a cost-effective and customizable baby monitor using a Ra
 ## Features (as desired)
 - **Live Video Streaming**: View the video feed from a web browser on a computer or smart phone.
 - **Night Vision Support**: Use an IR camera module and IR LED for low-light environments (sleep time).
-<!-- - **Dynamic Lighting**: Turn on/off IR LED turns manually or connect it to a light sensor for automatic adjustments. -->
+- **Dynamic Lighting**: Turn on/off IR LED turns manually or connect it to a light sensor for automatic adjustments.
 
 ## Parts List
-| Component                                      | Description
+| Component                                            | Description
 |----------------------------------------------- |-----------------------------------------------------------------------------------|
-| Raspberry Pi 4 (4GB) Starter Kit               | Includes power supply, case, and SD card                 
-| Raspberry Pi NoIR v2.1 Camera Module           | 8MP infrared camera module                              
-| Adafruit TSL2591 Light Sensor                  | High-dynamic range light sensor                          
-| Adafruit High Power IR LED Emitter             | For infrared night vision                                
-| JST PH 3-Pin to Female Socket Cable (200mm)    | For connecting the IR LED emitter                        
-| JST PH 4-Pin to Female Socket Cable (200mm)    | For connecting the light sensor                          
+| Raspberry Pi 4 (4GB) Starter Kit                     | Includes power supply, case, and SD card                 
+| Raspberry Pi NoIR v2.1 Camera Module                 | 8MP infrared camera module                              
+| Adafruit TSL2591 Light Sensor                        | High-dynamic range light sensor                          
+| Adafruit High Power IR LED Emitter                   | For infrared light vision                                
+| STEMMA JST PH 2mm 3-Pin to Female Socket Cable       | For connecting the IR LED emitter                        
+| JST PH 3-Pin to Female Socket Cable (200mm)          | For connecting the light sensor                          
 
 ## File Tree
 ```
@@ -42,17 +42,15 @@ RaspberryPiBabyMonitor/
 ## Getting Started
 1. **Assemble the hardware**:
    - Connect the camera module to the Raspberry Pi.
-   <!-- - Attach the IR LED and light sensor using the respective JST connectors. -->
+   - Attach the IR LED and light sensor using the respective JST connectors, if desired.
    
 2. **Set up the software**:
    - Follow the detailed instructions in [SETUP.md](docs/SETUP.md#step-1-flashing-the-sd-card-with-raspberry-pi-os) to flash Raspberry Pi OS, set up SSH and network configuration, and connect the hardware
    - Clone this repository and install the required dependencies by following [INSTALLATION.md](docs/INSTALLATION.md#step-4-setup-project-environment-on-raspberry-pi).
 
 3. **Run the application**:
-   - Execute the desired version of `stream.py` to start the video feed and additional features.
+   - Execute the desired version of `stream.py` (see next section) to start the video feed and additional features.
    - Use a web browser on a computer or smart phone to view the stream by visiting `http://<raspberry_pi_ip>:5000`.
-
-   - Here's an explanation of the different stream.py versions:
 
 
 ## Harware Rquirements and Functionality
@@ -66,16 +64,11 @@ RaspberryPiBabyMonitor/
    - Raspberry Pi Camera Module (NoIR v2.1 or regular)
    - Wi-Fi connection
 
-   <!-- stream_LED.py (+ manual on/off LED control)
+   stream_LED.py (+ manual on/off LED control)
    - Raspberry Pi 4
    - Raspberry Pi Camera Module (NoIR v2.1 or regular)
    - Wi-Fi connection
-   - Adafruit High Power IR LED Emitter -->
-
-
-<!-- ## Usage
-- Visit `http://<raspberry_pi_ip>:<port>` in a browser to view the live stream.
-- The IR LED will automatically turn on when the light sensor detects low ambient light. -->
+   - Adafruit High Power IR LED Emitter
 
 ## Future Plans
 - Automatic LED adjustments.
