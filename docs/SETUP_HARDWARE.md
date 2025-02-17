@@ -19,12 +19,13 @@
    - Open the Raspberry Pi Imager and select the Raspberry Pi device that you have, the OS (I recommend 64 bit) that you want to use, and the SD card, and click **Next**.
 
 3. **Edit Settings Before Flashing**:  
-   - Before starting the flashing process, click on the **Edit** button on the left
-   - Enable **SSH** to allow remote access.
+   - Before starting the flashing process, click on the **Edit Settings** button on the left
    - Set your **username** and **password** for the Pi (remember these).
    - Configure your **Wi-Fi** settings:  
      - Enter your **Wi-Fi network name (SSID)** and **password**.
      - Set the correct **country code** to ensure proper Wi-Fi operation.
+   - On the next tab, enable **SSH** to allow remote access.
+   - After adjusting, click 'Yes' to start the flashing
 
 4. **Complete the Flashing**:  
    After you have set everything up, proceed with flashing the SD card. Once the flashing process is complete, eject and remove the SD card from your computer.
