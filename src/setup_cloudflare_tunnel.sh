@@ -1,5 +1,16 @@
 #!/bin/bash
 
+echo "Installing Cloudflar"
+sudo apt-get install curl lsb-release
+curl -L https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-archive-keyring.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee  /etc/apt/sources.list.d/cloudflared.list
+sudo apt-get update
+sudo apt-get install -y cloudflared
+
+
+
+
+
 echo "Logging into Cloudflare. Follow the instructions to authenticate..."
 cloudflared tunnel login
 
@@ -12,7 +23,7 @@ echo "Configuring tunnel..."
 mkdir -p ~/.cloudflared
 cat <<EOT > ~/.cloudflared/config.yml
 tunnel: $TUNNEL_UUID
-credentials-file: /home/pi/.cloudflared/$TUNNEL_UUID.json
+credentials-file: /home/bedelman/.cloudflared/$TUNNEL_UUID.json
 
 ingress:
   - hostname: bje-stream.cloudflareTunnel.com
@@ -27,4 +38,4 @@ echo "Starting Cloudflare tunnel..."
 cloudflared tunnel run my-stream-tunnel &
 
 echo "Starting video stream..."
-python3 /home/pi/projects/baby_monitor/Raspberry-Pi-Baby-Monitor/src/stream_toggle.py &
+python3 /home/bedelman/projects/baby_monitor/Raspberry-Pi-Baby-Monitor/src/stream_toggle.py &

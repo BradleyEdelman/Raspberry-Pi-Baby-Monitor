@@ -26,15 +26,17 @@ This project describes a cost-effective and customizable baby monitor using a Ra
 RaspberryPiBabyMonitor/
 │
 ├── src/
-│ ├── stream.py
+│ ├── stream_LED_cloudflare.py
+│ ├── stream_LED.py
 │ ├── stream_toggle.py
-│ └── stream_LED.py
+│ └── stream.py
 │
 ├── docs/
 │ ├── images/
 │ ├── SETUP_HARDWARE.md
 │ ├── SETUP_SOFTWARE.md
-│ └── TROUBLESHOOTING.md
+│ ├── TROUBLESHOOTING.md
+│ └── WEB_STREAMING_SETUP.md
 │
 ├── requirements.txt
 ├── setup.py
@@ -52,9 +54,13 @@ RaspberryPiBabyMonitor/
    - Flash Raspberry Pi OS and create a project directory via SSH
    - Clone this repository and install the required dependencies
 
-3. **Run the application**:
+3. **Create CloudFlare account for streaming off network [WEB_STREAMING_SETUP](docs/WEB_STREAMING_SETUP.md)**:
+   - Make a CloudFlare account and obtain a domain name
+   - Create and configure a tunnel for off-network streaming
+
+4. **Run the application**:
    - Execute the desired version of `stream.py` (see next section) to start the video feed and additional features.
-   - Use a web browser on a computer or smart phone to view the stream by visiting `http://<raspberry_pi_ip>:5000`.
+   - Use a web browser on a computer or smart phone to view the stream by visiting `http://<your_pi_ip>:5000`.
 
 
 ## Harware Requirements and Functionality
@@ -74,7 +80,12 @@ RaspberryPiBabyMonitor/
    - Wi-Fi connection
    - Adafruit High Power IR LED Emitter
 
+   stream_LED_cloudflare (+ manual on/off LED control)
+   - Raspberry Pi 4
+   - Raspberry Pi Camera Module (NoIR v2.1 or regular)
+   - CloudFlare account and domain name
+   - Adafruit High Power IR LED Emitter
+
 ## Future Plans
 - Automatic LED adjustments.
 - Edge AI models for real-time monitoring.
-- Extend support for mobile apps.

@@ -43,11 +43,3 @@
 
    http://<your_pi_ip>:5000
 
-
-
-## Step 3: Stream off network (ngrok)
-
-<!-- TBD
-sudo wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
-sudo apt install unzip -->
-
