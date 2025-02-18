@@ -1,5 +1,6 @@
 from flask import Flask, Response, render_template_string, redirect, stream_with_context
 from picamera2 import Picamera2
+import numpy as np
 import cv2, time
 import RPi.GPIO as GPIO
 
@@ -25,12 +26,16 @@ GPIO.setup(LED_PIN, GPIO.OUT)
 def generate_frames():
     @stream_with_context
     def generate():
+        global camera_streaming
         while True:
-            frame = picam2.capture_array()
-            _, buffer = cv2.imencode('.jpg', frame)
-            frame_bytes = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+            if camera_streaming:
+                frame = picam2.capture_array()
+                _, buffer = cv2.imencode('.jpg', frame)
+                frame_bytes = buffer.tobytes()
+                yield (b'--frame\r\n'
+                    b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+            else:
+                frame = np.zeros((480, 640, 3), dtype=np.unit8)
             time.sleep(0.05)
 
     return generate()
