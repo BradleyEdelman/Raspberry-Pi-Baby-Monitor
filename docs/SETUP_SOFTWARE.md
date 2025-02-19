@@ -1,5 +1,7 @@
 # Installation instructions for the baby monitor
 
+---
+
 ## Step 1: Install system-level dependencies
 
 1. **Create a project directory**
@@ -34,7 +36,7 @@
    python3 stream.py
    ```
 
-
+---
 
 ## Step 2: Stream video across Wi-Fi network
 

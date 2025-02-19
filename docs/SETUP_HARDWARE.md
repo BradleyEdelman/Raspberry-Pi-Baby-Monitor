@@ -8,6 +8,7 @@
 - Micro-USB power supply
 - Laptop
 
+---
 
 ## Step 1: Flashing the SD Card with Raspberry Pi OS
 
@@ -30,7 +31,7 @@
 4. **Complete the Flashing**:  
    After you have set everything up, proceed with flashing the SD card. Once the flashing process is complete, eject and remove the SD card from your computer.
 
-
+---
 
 ## Step 2: Connect Hardware
 
@@ -45,7 +46,7 @@
 
    - Connect the Raspberry Pi to a power source and wait for the boot process to complete.
 
-
+---
 
 ## Step 3: Set Up SSH Access (for headless setup)
 
@@ -68,7 +69,7 @@
 
    - Enter the password that you specified during the flashing process.
 
-
+---
 
 ## Step 4: Test camera (optional)
 
@@ -111,7 +112,7 @@
    - You will get prompted for the Raspberry Pi password again.
    - View test image and video on the client to make sure the video is capturing frames properly
 
-
+---
 
 ## Step 5: Attach LED emitter (optional)
    - Connect the LED emitter to the Raspberry Pi using the JST socket cable. The LED emitted that I include here has a 3-pin STEMMA JST slot. I had a lot of trouble finding a 3-pin cable in CH, so I ordered a 4-pin version and whittled off the fourth slot and some obstructions on top with a small swiss army knife. The plastic is quite thin and is cut easily. After this, the connector slid right into the pins.
