@@ -1,13 +1,17 @@
 # Setting Up Cloudflare Tunnel for Raspberry Pi Video Streaming
 
-This guide will help you set up a **Cloudflare Tunnel** to make your Raspberry Pi **video stream accessible over the internet** without exposing your local network. 
+This guide explains how to set up a **Cloudflare Tunnel** to make the Raspberry Pi **video stream accessible over the internet** without exposing a local network. 
 
 ---
 
 ## **Step 1: Create a Cloudflare Account**
 1. Go to **[Cloudflare](https://dash.cloudflare.com/)** and sign up.
 
-2. To make things easier, I also purchased myown domain name for ~$4 for 12 months. If you dont want to pay, you can also stream to a new website everytime you start, but I wanted a permanent location for sharing purposes. Allegedly, CloudFlare also offers free domains, but I couldnt figure this out. If you purchase a domain name with CloudFlare, I would do it now as you will need it to be connected to your account for later steps. I also found another [blog](https://dev.to/omarcloud20/a-free-cloudflare-tunnel-running-on-a-raspberry-pi-1jid) that setup a free domain on Freenom, but I got impatient :).
+2. To make things easier, I also purchased my own domain name for ~$4 for 12 months. If you dont want to pay, you can also stream to a new website everytime you start, but I wanted a permanent domain name that I could password protect and share with family.
+
+<img src="images/create_domain.PNG" alt="Create Domain" width="600" />
+
+Allegedly, CloudFlare also offers free domains, but I couldnt figure this out. If you purchase a domain name with CloudFlare, I would do it now as you will need to connect it to your account for later steps. I also found another [blog](https://dev.to/omarcloud20/a-free-cloudflare-tunnel-running-on-a-raspberry-pi-1jid) that setup a free domain on Freenom, but I got impatient and figured $4 was worth saving another headache :).
 
 
 ## **Step 2: Install and Build Dependencies**
@@ -29,7 +33,9 @@ sudo apt-get install -y cloudflared
 cloudflared tunnel login
 ```
 
-If using a headless setup like me, this will print out a login link. You should copy and paste this link on your client and login (if you havent done so already). This will take you to a screen like below where you should select your domain that you previously created.
+If using a headless setup like me, this will print out a login link. You should copy and paste this link on another computer and login (if you havent done so already). This will take you to a screen like below where you should select your domain that you previously created.
+
+<img src="images/tunnel_login.PNG" alt="Tunnel Login (Raspberry Pi)" width="600" />
 
 Once connected, you should receive a message in your Raspberry Pi that ~/.cloudflared/cert.pem file has been created. This should also create a ~/.cloudflared/config.yml file that you will modify in the next step.
 
@@ -44,6 +50,13 @@ This will generate a unique tunnel ID (UUID) that you can view by running the fo
 ```bash
 cloudflared tunnel list
 ```
+
+You should also see this tunnel in your CloudFlare Zero Trust online account. First navigate to Zero Trust, and then to your tunnel list:
+
+<p align="center">
+    <img src="images/zero_trust_loc.PNG" alt="Zero Trust Location" width="25%" />
+    <img src="images/tunnel_list.PNG" alt="Tunnel List" width="60%" />
+</p>
 
 
 ## **Step 4: Configure the Tunnel and DNS**
@@ -77,7 +90,23 @@ cloudflared tunnel route dns tunnel-name domain-name
 ## **Step 5: Start the Tunnel and Stream**
 
 ```bash
-cloudflared tunnel run your-tunnel-name & python3 stream_toggle.py &
+cloudflared tunnel run your-tunnel-name & python3 stream_LED_cloudflare.py &
 ```
 
-You should now be able to see the stream on both your local Wi-Fi-connected devices at "http://<your_pi_ip>:5000" and non-local devices at "domain-name"
+You should now be able to see the stream on both your local Wi-Fi-connected devices at "http://<your_pi_ip>:5000" and non-local devices at your "domain-name".
+
+
+## **Step 6: Add Password Protection (optional)**
+Since these domain names are public, it makes sense to add password protection so that only authorized individuals can access the stream. You can easily do this on the CloudFlare Zero Trust website:
+
+First create an application:
+
+<img src="images/access_application_loc.PNG" alt="Create Application" width="250" />
+
+Then, associate your domain name, create an "allow" access policy with specified emails, and select the login method of "One-time PIN" (make sure the "Instant Auth" switch is on):
+
+<p align="center">
+    <img src="images/access_info.PNG" alt="Access Info" width="25%" />
+    <img src="images/access_policy.PNG" alt="Access Policy" width="25%" />
+    <img src="images/access_login.PNG" alt="Access Login" width="25%" />
+</p>

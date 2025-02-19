@@ -38,11 +38,13 @@ RaspberryPiBabyMonitor/
 │ ├── TROUBLESHOOTING.md
 │ └── WEB_STREAMING_SETUP.md
 │
-├── requirements.txt
-├── setup.py
 ├── .gitignore
+├── CHANGELOG.md
+├── install.sh
+├── LICENSE
 ├── README.md
-└── LICENSE
+├── requirements.txt
+└── setup.py
 ```
 
 ## Getting Started
@@ -60,7 +62,7 @@ RaspberryPiBabyMonitor/
 
 4. **Run the application**:
    - Execute the desired version of `stream.py` (see next section) to start the video feed and additional features.
-   - Use a web browser on a computer or smart phone to view the stream by visiting `http://<your_pi_ip>:5000`.
+   - Use a web browser on a computer or smart phone to view the stream by visiting `http://<your_pi_ip>:5000` and/or at a private domain.
 
 
 ## Harware Requirements and Functionality
